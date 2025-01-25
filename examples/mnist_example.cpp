@@ -35,10 +35,13 @@
 #include <iostream>
 #include <vector>
 
-#include <chisei/idx_loader.hpp>
-#include <chisei/neural_network.hpp>
+// Include headers for the Chisei library
+#include <chisei/idx_loader.hpp> // For loading IDX dataset
+#include <chisei/neural_network.hpp> // For handling neural network operations
 
+// Function to create a pseudo "2" as an input representation
 std::vector<double> create_pseudo_two() {
+    // Define a 2D grid that visually represents the digit "2"
     std::vector<std::vector<double>> grid = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -63,28 +66,40 @@ std::vector<double> create_pseudo_two() {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
 
+    // Flatten the 2D grid into a single 1D vector
     std::vector<double> flattened;
-    for(const auto& row : grid)
+    for (const auto& row : grid) {
         flattened.insert(flattened.end(), row.begin(), row.end());
+    }
 
-    return flattened;
+    return flattened; // Return the flattened representation
 }
 
 int main() {
+    // Load an MNIST neural network model using the Chisei library
+    // - Train images: "data/train-images-idx3-ubyte"
+    // - Train labels: "data/train-labels-idx1-ubyte"
+    // - Learning rate: 0.1
+    // - Epochs: 1000
     chisei::NeuralNetwork mnist_network = chisei::IDXLoader::fromMNIST(
         "data/train-images-idx3-ubyte",
         "data/train-labels-idx1-ubyte",
         0.1, 1000
     );
 
+    // Create the pseudo "2" digit representation
     std::vector<double> pseudo_two = create_pseudo_two();
+
+    // Use the neural network to predict the output for the pseudo "2"
     std::vector<double> prediction = mnist_network.predict(pseudo_two);
 
+    // Find the index of the highest confidence value in the prediction
     size_t predicted_digit = std::max_element(
         prediction.begin(),
         prediction.end()
     ) - prediction.begin();
 
+    // Output the predicted digit and its confidence score
     std::cout << "Predicted Digit: " << predicted_digit 
         << ", Confidence: " << prediction[predicted_digit] 
         << std::endl;
