@@ -256,7 +256,7 @@ void NeuralNetwork::save_model(const std::string& filename) {
 
     std::ofstream file(final_filename, std::ios::binary);
     if(!file)
-        throw std::runtime_error("Failed to open *.chisei file for saving the model.");
+        throw std::system_error("Failed to open *.chisei file for saving the model.");
 
     const char magic[] = "CS";
     file.write(magic, sizeof(magic) - 1);
@@ -288,12 +288,12 @@ void NeuralNetwork::save_model(const std::string& filename) {
 NeuralNetwork NeuralNetwork::loadFromModel(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if(!file.is_open())
-        throw std::runtime_error("Failed to open file for loading model.");
+        throw std::system_error("Failed to open file for loading model.");
 
     char magic[2] = {0};
     file.read(magic, sizeof(magic));
     if(magic[0] != 'C' || magic[1] != 'S')
-        throw std::runtime_error("Invalid *.chisei file format, missing magic bytes.");
+        throw std::system_error("Invalid *.chisei file format, missing magic bytes.");
 
     size_t num_layers;
     file.read(reinterpret_cast<char*>(&num_layers), sizeof(num_layers));

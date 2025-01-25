@@ -46,7 +46,7 @@ NeuralNetwork IDXLoader::fromMNIST(
     std::ifstream labels(labels_file, std::ios::binary);
 
     if(!images || !labels) 
-        throw std::runtime_error("Failed to open MNIST files");
+        throw std::system_error("Failed to open MNIST files");
 
     uint32_t image_magic = readUint32(images);
     uint32_t num_images = readUint32(images);
@@ -57,7 +57,7 @@ NeuralNetwork IDXLoader::fromMNIST(
     readUint32(labels);
 
     if(image_magic != 0x00000803 || label_magic != 0x00000801)
-        throw std::runtime_error("Invalid MNIST file format");
+        throw std::system_error("Invalid MNIST file format");
 
     size_t input_size = rows * cols;
     size_t output_size = 10;
