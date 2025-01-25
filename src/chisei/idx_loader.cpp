@@ -33,6 +33,7 @@
  */
 
 #include <chisei/idx_loader.hpp>
+#include <chisei/model_loader_exception.hpp>
 
 namespace chisei {
 
@@ -46,7 +47,7 @@ NeuralNetwork IDXLoader::fromMNIST(
     std::ifstream labels(labels_file, std::ios::binary);
 
     if(!images || !labels) 
-        throw std::bad_exception("Failed to open MNIST files");
+        throw ModelLoaderException("Failed to open MNIST files");
 
     uint32_t image_magic = readUint32(images);
     uint32_t num_images = readUint32(images);
@@ -57,7 +58,7 @@ NeuralNetwork IDXLoader::fromMNIST(
     readUint32(labels);
 
     if(image_magic != 0x00000803 || label_magic != 0x00000801)
-        throw std::bad_exception("Invalid MNIST file format");
+        throw ModelLoaderException("Invalid MNIST file format");
 
     size_t input_size = rows * cols;
     size_t output_size = 10;
