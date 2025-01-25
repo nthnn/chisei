@@ -4,4 +4,4 @@
     <br/>
 </p>
 
-<h1 align="center">Lightweight AI/ML Frameworks</h1>
+<h1 align="center">Lightweight AI/ML Framework</h1>
