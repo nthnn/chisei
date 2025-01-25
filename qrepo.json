@@ -1,0 +1,29 @@
+{
+	"name": "chisei",
+	"author": "Nathanne Isip",
+	"version": "v1.0.0",
+	"description": "A lightweight, efficient, and user-friendly C++ library for creating, training, and deploying fully connected neural networks; designed with simplicity and performance in mind.",
+	"git": "https://github.com/nthnn/chisei.git",
+	"scripts": {
+		"build-amd64": [
+			"./tools/build.sh amd64 x86_64-linux-gnu"
+		],
+		"build-riscv64": [
+			"sudo apt install -y gcc-riscv64-linux-gnu",
+			"./tools/build.sh riscv64 riscv64-linux-gnu"
+		],
+		"build-arm": [
+			"sudo apt install -y gcc-arm-linux-gnueabihf",
+			"./tools/build.sh armhf arm-linux-gnueabihf"
+		],
+		"clean": [
+			"rm -rf dist"
+		],
+		"build": [
+			"qrepo run clean",
+			"qrepo run build-amd64",
+			"qrepo run build-riscv64",
+			"qrepo run build-arm"
+		]
+	}
+}
