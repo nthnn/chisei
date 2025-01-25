@@ -84,7 +84,7 @@ int main() {
     chisei::NeuralNetwork mnist_network = chisei::IDXLoader::fromMNIST(
         "data/train-images-idx3-ubyte",
         "data/train-labels-idx1-ubyte",
-        0.3, 100
+        0.1, 1000
     );
 
     // Create the pseudo "2" digit representation
