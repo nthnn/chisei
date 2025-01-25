@@ -2,9 +2,6 @@ name: Build CI
 
 on:
   push:
-    paths:
-      - include/**
-      - src/**
     branches:
       - main
 
