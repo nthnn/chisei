@@ -32,8 +32,8 @@ jobs:
               -pipe -ffast-math -s -std=c++23 -fopenmp -mabm -madx -maes -mavx -mavx2         \
               -mclflushopt -mcx16 -mf16c -mfma -mfsgsbase -mfxsr -mmmx -mmovbe -mrdrnd        \
               -mrdseed -msgx -msse -msse2 -msse4.1 -msse4.2 -mxsave -mxsavec -mxsaveopt       \
-              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/basic_example src/*.cpp \
-              examples/basic_example.cpp
+              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/basic_example           \
+              src/chisei/*.cpp examples/basic_example.cpp
 
       - name: Run Basic Example
         run: |
@@ -58,8 +58,8 @@ jobs:
               -pipe -ffast-math -s -std=c++23 -fopenmp -mabm -madx -maes -mavx -mavx2         \
               -mclflushopt -mcx16 -mf16c -mfma -mfsgsbase -mfxsr -mmmx -mmovbe -mrdrnd        \
               -mrdseed -msgx -msse -msse2 -msse4.1 -msse4.2 -mxsave -mxsavec -mxsaveopt       \
-              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/mnist_example src/*.cpp \
-              examples/mnist_example.cpp
+              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/mnist_example           \
+              src/chisei/*.cpp examples/mnist_example.cpp
 
       - name: Run MNIST Example
         run: |
