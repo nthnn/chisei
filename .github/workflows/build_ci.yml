@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build examples
+      - name: Build Basic Example
         run: |
           mkdir -p dist
           g++                                                                                 \
@@ -35,8 +35,35 @@ jobs:
               -pipe -ffast-math -s -std=c++23 -fopenmp -mabm -madx -maes -mavx -mavx2         \
               -mclflushopt -mcx16 -mf16c -mfma -mfsgsbase -mfxsr -mmmx -mmovbe -mrdrnd        \
               -mrdseed -msgx -msse -msse2 -msse4.1 -msse4.2 -mxsave -mxsavec -mxsaveopt       \
-              -mxsave -mfpmath=sse -march=native -s -o dist/chisei src/chisei.cpp
+              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/basic_example src/*.cpp \
+              examples/basic_example.cpp
 
-      - name: Run examples
+      - name: Run Basic Example
         run: |
-          ./dist/chisei
+          ./dist/basic_example
+
+      - name: Build MNIST Example
+        run: |
+          mkdir -p dist
+          g++                                                                                 \
+              -Wall -pedantic -Wdisabled-optimization -pedantic-errors -Wextra                \
+              -Wcast-align -Wcast-qual -Wchar-subscripts -Wcomment -Wconversion               \
+              -Werror -Wno-deprecated-declarations -Wfloat-equal -Wformat -Wformat=2          \
+              -Wformat-nonliteral -Wformat-security -Wformat-y2k -Wimport -Winit-self         \
+              -Winvalid-pch -Wunsafe-loop-optimizations -Wlong-long -Wmissing-braces          \
+              -Wmissing-field-initializers -Wmissing-format-attribute -Wmissing-include-dirs  \
+              -Weffc++ -Wpacked -Wparentheses -Wpointer-arith -Wredundant-decls               \
+              -Wreturn-type -Wsequence-point -Wshadow -Wsign-compare -Wstack-protector        \
+              -Wstrict-aliasing -Wstrict-aliasing=2 -Wswitch -Wswitch-default -Wswitch-enum   \
+              -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunreachable-code -Wunused       \
+              -Wunused-function -Wunused-label -Wunused-parameter -Wunused-value              \
+              -Wunused-variable -Wvariadic-macros -O2 -Wvolatile-register-var -Wwrite-strings \
+              -pipe -ffast-math -s -std=c++23 -fopenmp -mabm -madx -maes -mavx -mavx2         \
+              -mclflushopt -mcx16 -mf16c -mfma -mfsgsbase -mfxsr -mmmx -mmovbe -mrdrnd        \
+              -mrdseed -msgx -msse -msse2 -msse4.1 -msse4.2 -mxsave -mxsavec -mxsaveopt       \
+              -mxsave -mfpmath=sse -march=native -s -Iinclude -o dist/mnist_example src/*.cpp \
+              examples/mnist_example.cpp
+
+      - name: Run MNIST Example
+        run: |
+          ./dist/mnist_example
