@@ -19,7 +19,21 @@ Chisei (智成, meaning "Intelligence Accomplished" in Japanese) is a lightweigh
 
 ## 🚀 Getting Started
 
-&lt;No contents yet&gt;
+1. Download the `*.deb` file for your system architecture from [release](https://github.com/nthnn/chisei/releases).
+2. Install the `*.deb` file using the `dpkg` command on the terminal:
+
+    ```bash
+    sudo dpkg -i chisei_*.deb
+    ```
+
+3. Try to compile the examples within this repository using the `g++` command.
+
+    ```bash
+    g++ -o dist/basic_example examples/basic_example.cpp -lchisei
+    g++ -o dist/mnist_example examples/mnist_example.cpp -lchisei
+    ```
+
+4. Check the **chisei** documentations at [https://chisei.vercel.app](https://chisei.vercel.app).
 
 ## 📜 License
 
