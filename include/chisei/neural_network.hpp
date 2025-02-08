@@ -41,6 +41,7 @@
 #ifndef CHISEI_NEURAL_NETWORK_HPP
 #define CHISEI_NEURAL_NETWORK_HPP
 
+#include <algorithm>
 #include <exception>
 #include <fstream>
 #include <functional>
