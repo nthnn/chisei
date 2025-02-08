@@ -72,7 +72,7 @@ public:
      * 
      * @return A pointer to the error message as a C-style string.
      */
-    char* what() {
+    const char* what() const noexcept override {
         return const_cast<char*>(this->message.c_str());
     }
 };
