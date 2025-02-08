@@ -47,7 +47,7 @@ NeuralNetwork::NeuralNetwork(
     activation(_activation),
     activation_derivative(_activation_derivative),
     rd(),
-    gen({rd()})
+    gen(rd())
 {
     CPUFeatureOptimizer::init_cpu_features(this->gen);
 
@@ -165,21 +165,23 @@ void NeuralNetwork::train(
             gradients.back() = output_gradient;
 
             for(int layer = (int) weights.size() - 2; layer >= 0; --layer) {
-                std::vector<double> layer_gradient(layer_sizes[layer + 1]);
-                
-                for(size_t j = 0; j < layer_sizes[layer + 1]; ++j) {
+                std::vector<double> layer_gradient(
+                    layer_sizes[static_cast<size_t>(layer + 1)]
+                );
+
+                for(size_t j = 0; j < layer_sizes[static_cast<size_t>(layer + 1)]; ++j) {
                     double gradient_sum = 0.0;
 
-                    for(size_t k = 0; k < layer_sizes[layer + 2]; ++k)
-                        gradient_sum += gradients[layer + 1][k] *
-                            weights[layer + 1][j][k];
+                    for(size_t k = 0; k < layer_sizes[static_cast<size_t>(layer + 2)]; ++k)
+                        gradient_sum += gradients[static_cast<size_t>(layer + 1)][k] *
+                            weights[static_cast<size_t>(layer + 1)][j][k];
 
-                    double layer_output = layer_outputs[layer + 1][j];
+                    double layer_output = layer_outputs[static_cast<size_t>(layer + 1)][j];
                     layer_gradient[j] = gradient_sum *
                         this->activation_derivative(layer_output);
                 }
                 
-                gradients[layer] = layer_gradient;
+                gradients[static_cast<size_t>(layer)] = layer_gradient;
             }
 
             for(size_t layer = 0; layer < weights.size(); ++layer) {
@@ -238,14 +240,18 @@ bool NeuralNetwork::is_correct_prediction(
     const std::vector<double>& prediction, 
     const std::vector<double>& target
 ) {
-    size_t pred_max_idx = std::max_element(
-        prediction.begin(),
-        prediction.end()
-    ) - prediction.begin();
-    size_t target_max_idx = std::max_element(
-        target.begin(),
-        target.end()
-    ) - target.begin();
+    size_t pred_max_idx = static_cast<size_t>(
+        std::max_element(
+            prediction.begin(),
+            prediction.end()
+        ) - prediction.begin()
+    );
+    size_t target_max_idx = static_cast<size_t>(
+        std::max_element(
+            target.begin(),
+            target.end()
+        ) - target.begin()
+    );
 
     return pred_max_idx == target_max_idx;
 }
