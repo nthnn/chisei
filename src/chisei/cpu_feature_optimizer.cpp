@@ -45,6 +45,8 @@ void CPUFeatureOptimizer::init_cpu_features(std::mt19937 gen) {
     while(_rdrand32_step(&genSeed) == 0);
 
     gen.seed(genSeed);
+    #else
+    gen.seed(static_cast<uint_fast32_t>(rand()));
     #endif
 }
 
