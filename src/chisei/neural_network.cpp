@@ -197,7 +197,7 @@ void NeuralNetwork::train(
     }
 }
 
-double compute_mse_loss(const std::vector<double>& prediction, 
+double NeuralNetwork::compute_mse_loss(const std::vector<double>& prediction, 
     const std::vector<double>& target) {
     double total_loss = 0.0;
 
@@ -210,7 +210,7 @@ double compute_mse_loss(const std::vector<double>& prediction,
     return total_loss / (double) prediction.size();
 }
 
-std::vector<double> compute_output_gradient(
+std::vector<double> NeuralNetwork::compute_output_gradient(
     const std::vector<double>& prediction, 
     const std::vector<double>& target
 ) {
