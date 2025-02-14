@@ -280,13 +280,13 @@ void NeuralNetwork::save_model(const std::string& filename) {
         for(size_t i = 0; i < layer_sizes[layer]; ++i)
             file.write(
                 reinterpret_cast<char*>(weights[layer][i].data()),
-                weights[layer][i].size() * sizeof(double)
+                static_cast<std::streamsize>(weights[layer][i].size() * sizeof(double))
             );
 
     for(size_t layer = 0; layer < biases.size(); ++layer)
         file.write(
             reinterpret_cast<char*>(biases[layer].data()),
-            biases[layer].size() * sizeof(double)
+            static_cast<std::streamsize>(biases[layer].size() * sizeof(double))
         );
 
     file.close();
@@ -308,7 +308,7 @@ NeuralNetwork NeuralNetwork::loadFromModel(const std::string& filename) {
     std::vector<size_t> layer_sizes(num_layers);
     file.read(
         reinterpret_cast<char*>(layer_sizes.data()),
-        num_layers * sizeof(size_t)
+        static_cast<std::streamsize>(num_layers * sizeof(size_t))
     );
 
     NeuralNetwork network(
@@ -327,7 +327,7 @@ NeuralNetwork NeuralNetwork::loadFromModel(const std::string& filename) {
             network.weights[layer][i].resize(layer_sizes[layer + 1]);
             file.read(
                 reinterpret_cast<char*>(network.weights[layer][i].data()),
-                layer_sizes[layer + 1] * sizeof(double)
+                static_cast<std::streamsize>(layer_sizes[layer + 1] * sizeof(double))
             );
         }
     }
@@ -336,7 +336,7 @@ NeuralNetwork NeuralNetwork::loadFromModel(const std::string& filename) {
         network.biases[layer].resize(layer_sizes[layer + 1]);
         file.read(
             reinterpret_cast<char*>(network.biases[layer].data()),
-            layer_sizes[layer + 1] * sizeof(double)
+            static_cast<std::streamsize>(layer_sizes[layer + 1] * sizeof(double))
         );
     }
 
